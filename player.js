@@ -5,21 +5,29 @@ export default class Player {
             'walk': 15,
             'idle': 10,
             'hurt': 15,
-            'turn': 15
+            'turn': 25
         }
         this.walkSpeed = 5;
         this.xVel = 0;
         this.yVel = 0;
-        this.animSM = new StateMachine({
-            init: 'leftIdle',
+        this.lookDirSM = new StateMachine({
+            init: 'lookingLeft',
             transitions: [
-                {name: 'turn', from: ['leftIdle', 'leftWalk'], to: 'rightTurn'},
-                {name: 'turn', from: ['rightIdle', 'rightWalk'], to: 'leftTurn'},
-                {name: 'walk', from: ['rightTurn', 'rightIdle', 'rightWalk'], to: 'rightWalk'},
-                {name: 'walk', from: ['leftTurn', 'leftIdle', 'leftWalk'], to: 'leftWalk'},
-                {name: 'idle', from: ['rightWalk', 'rightTurn'], to: 'rightIdle'},
-                {name: 'idle', from: ['leftWalk', 'leftTurn'], to: 'leftIdle'},
+                { name: 'lookLeft', from: 'lookingRight', to: 'lookingLeft' },
+                { name: 'lookRight', from: 'lookingLeft', to: 'lookingRight' },
             ],
+        });
+        this.animSM = new StateMachine({
+            init: 'idlingLeft',
+            transitions: [
+                { name: 'walkLeft', from: ['idlingLeft', 'turningLeft'], to: 'walkingLeft' },
+                { name: 'walkRight', from: ['idlingRight', 'turningRight'], to: 'walkingRight' },
+                { name: 'turnLeft', from: ['idlingRight', 'walkingRight'], to: 'turningLeft' },
+                { name: 'turnRight', from: ['idlingLeft', 'walkingLeft'], to: 'turningRight' },
+                { name: 'idleLeft', from: ['walkingLeft', 'turningLeft'], to: 'idlingLeft' },
+                { name: 'idleRight', from: ['walkingRight', 'turningRight'], to: 'idlingRight' },
+            ],
+
         });
     }
 
@@ -33,98 +41,134 @@ export default class Player {
         this.sprite.body.setSize(12, 16);
         this.sprite.body.setOffset(6, 8);
         this.createAnims(phaser);
-
+        console.log(this.animSM.allStates());
         this.animSM.observe({
-            onRightTurn: () => {this.sprite.anims.play('player-left-turn'); },
-            onLeftTurn: () => {this.sprite.anims.play('player-right-turn'); },
-            onRightWalk: () => {this.sprite.anims.play('player-right-walk'); },
-            onLeftWalk: () => {this.sprite.anims.play('player-left-walk'); },
-            onRightIdle: () => {this.sprite.anims.play('player-right-idle'); },
-            onLeftIdle: () => {this.sprite.anims.play('player-left-idle'); },
+            onTurningRight: () => { this.sprite.anims.play('player-left-turn'); },
+            onLeaveTurningRight: () => { if (this.sprite.anims.isPlaying) return false; },
+            onTurningLeft: () => { this.sprite.anims.play('player-right-turn'); },
+            onLeaveTurningLeft: () => { if (this.sprite.anims.isPlaying) return false; },
+            onWalkingRight: () => { this.sprite.anims.play('player-right-walk'); },
+            onWalkingLeft: () => { this.sprite.anims.play('player-left-walk'); },
+            onIdlingRight: () => { this.sprite.anims.play('player-right-idle'); },
+            onIdlingLeft: () => { this.sprite.anims.play('player-left-idle'); },
         });
         this.sprite.anims.play('player-left-idle');
     }
 
     update(phaser, dt) {
         this.calculateVelocities();
-        if(this.xVel == 0 && this.yVel == 0) {
-            if(this.animSM.can('idle')) this.animSM.idle();
+        this.handleAnimations();
+        this.move(dt);
+        //console.log(this.animSM.state);
+    }
+
+    handleAnimations() {
+        if (this.xVel == 0 && this.yVel == 0) {
+
+            if (this.lookDirSM.state == 'lookingLeft') {
+                this.animSM.can('idleLeft') && this.animSM.idleLeft();
+            }
+            else {
+                this.animSM.can('idleRight') && this.animSM.idleRight();
+            }
         }
         else {
-            if(this.animSM.can('walk')) this.animSM.walk();
-            else this.animSM.turn();
+            if (this.xVel > 0) {
+                if (this.lookDirSM.state == 'lookingLeft') {
+                    this.animSM.turnRight();
+                }
+                else {
+                    this.animSM.can('walkRight') && this.animSM.walkRight();
+                }
+                this.lookDirSM.can('lookRight') && this.lookDirSM.lookRight();
+            }
+            else if (this.xVel < 0) {
+                if (this.lookDirSM.state == 'lookingRight') {
+                    this.animSM.turnLeft();
+                }
+                else {
+                    this.animSM.can('walkLeft') && this.animSM.walkLeft();
+                }
+                this.lookDirSM.can('lookLeft') && this.lookDirSM.lookLeft();
+            }
+            else {
+                if (this.lookDirSM.state == 'lookingRight') {
+                    this.animSM.can('walkRight') && this.animSM.walkRight();
+                }
+                else {
+                    this.animSM.can('walkLeft') && this.animSM.walkLeft();
+                }
+            }
         }
-        this.move(dt);
-        console.log(this.animSM.state);
     }
 
     calculateVelocities() {
         this.xVel = 0; this.yVel = 0;
 
-        if(this.input.left.isDown) this.xVel -= this.walkSpeed; 
-        if(this.input.right.isDown) this.xVel += this.walkSpeed; 
-        if(this.input.up.isDown) this.yVel -= this.walkSpeed; 
-        if(this.input.down.isDown) this.yVel += this.walkSpeed; 
+        if (this.input.left.isDown) this.xVel -= this.walkSpeed;
+        if (this.input.right.isDown) this.xVel += this.walkSpeed;
+        if (this.input.up.isDown) this.yVel -= this.walkSpeed;
+        if (this.input.down.isDown) this.yVel += this.walkSpeed;
 
         this.xVel = Math.min(Math.max(this.xVel, -this.walkSpeed), this.walkSpeed);
         this.yVel = Math.min(Math.max(this.yVel, -this.walkSpeed), this.walkSpeed);
 
-        if(this.xVel !== 0 && this.yVel !== 0) {
+        if (this.xVel !== 0 && this.yVel !== 0) {
             this.xVel *= 0.70710678118;
             this.yVel *= 0.70710678118;
         }
     }
 
     move(dt) {
-        this.sprite.setVelocity(this.xVel * dt, this.yVel *  dt);
+        this.sprite.setVelocity(this.xVel * dt, this.yVel * dt);
     }
 
     createAnims(phaser) {
         phaser.anims.create({
             key: 'player-left-walk',
-            frames: phaser.anims.generateFrameNames('player', {start: 0, end: 3, prefix:'lWalkRun_', suffix:'.png'}),
+            frames: phaser.anims.generateFrameNames('player', { start: 0, end: 3, prefix: 'lWalkRun_', suffix: '.png' }),
             repeat: -1,
             frameRate: this.animSpeeds.walk
         });
         phaser.anims.create({
             key: 'player-right-walk',
-            frames: phaser.anims.generateFrameNames('player', {start: 0, end: 3, prefix:'rWalkRun_', suffix:'.png'}),
+            frames: phaser.anims.generateFrameNames('player', { start: 0, end: 3, prefix: 'rWalkRun_', suffix: '.png' }),
             repeat: -1,
             frameRate: this.animSpeeds.walk
         });
         phaser.anims.create({
             key: 'player-left-hurt',
-            frames: phaser.anims.generateFrameNames('player', {start: 0, end: 3, prefix:'lHurt_', suffix:'.png'}),
+            frames: phaser.anims.generateFrameNames('player', { start: 0, end: 3, prefix: 'lHurt_', suffix: '.png' }),
             repeat: 3,
             frameRate: this.animSpeeds.hurt
         });
         phaser.anims.create({
             key: 'player-right-hurt',
-            frames: phaser.anims.generateFrameNames('player', {start: 0, end: 3, prefix:'rHurt_', suffix:'.png'}),
+            frames: phaser.anims.generateFrameNames('player', { start: 0, end: 3, prefix: 'rHurt_', suffix: '.png' }),
             repeat: 3,
             frameRate: this.animSpeeds.hurt
         });
         phaser.anims.create({
             key: 'player-left-turn',
-            frames: phaser.anims.generateFrameNames('player', {start: 0, end: 3, prefix:'lTurn_', suffix:'.png'}),
+            frames: phaser.anims.generateFrameNames('player', { start: 0, end: 3, prefix: 'lTurn_', suffix: '.png' }),
             repeat: 0,
             frameRate: this.animSpeeds.turn
         });
         phaser.anims.create({
             key: 'player-right-turn',
-            frames: phaser.anims.generateFrameNames('player', {start: 0, end: 3, prefix:'rTurn_', suffix:'.png'}),
+            frames: phaser.anims.generateFrameNames('player', { start: 0, end: 3, prefix: 'rTurn_', suffix: '.png' }),
             repeat: 0,
             frameRate: this.animSpeeds.turn
         });
         phaser.anims.create({
             key: 'player-left-idle',
-            frames: phaser.anims.generateFrameNames('player', {start: 0, end: 3, prefix:'lIdle_', suffix:'.png'}),
+            frames: phaser.anims.generateFrameNames('player', { start: 0, end: 3, prefix: 'lIdle_', suffix: '.png' }),
             repeat: -1,
             frameRate: this.animSpeeds.idle
         });
         phaser.anims.create({
             key: 'player-right-idle',
-            frames: phaser.anims.generateFrameNames('player', {start: 0, end: 3, prefix:'rIdle_', suffix:'.png'}),
+            frames: phaser.anims.generateFrameNames('player', { start: 0, end: 3, prefix: 'rIdle_', suffix: '.png' }),
             repeat: -1,
             frameRate: this.animSpeeds.idle
         });
