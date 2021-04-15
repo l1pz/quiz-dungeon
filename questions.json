@@ -1,0 +1,452 @@
+[
+    {
+      "question": "Hogyan rétegződött a mükénéi társadalom?",
+      "answers": [
+        "papság, fegyveres arisztokraták, parasztok",
+        "fegyveres arisztokrácia, kézművesek, parasztok, házi rabszolgák",
+        "fegyveres arisztokrácia, papság, kézművesek, házi rabszolgák"
+      ],
+      "correct": "fegyveres arisztokrácia, kézművesek, parasztok, házi rabszolgák"
+    },
+    {
+      "question": "Melyik spártai törvényhozó osztotta a város közvetlen határát 9000 részre?",
+      "answers": [
+        "Lükurgosz",
+        "Theopomposz",
+        "Leonidász"
+      ],
+      "correct": "Lükurgosz"
+    },
+    {
+      "question": "Kik művelték a spártaiak földjét?",
+      "answers": [
+        "Metoikoszok",
+        "Helóták",
+        "Perioikoszok"
+      ],
+      "correct": "Helóták"
+    },
+    {
+      "question": "Ki volt Athén első türannosza?",
+      "answers": [
+        "Szolón",
+        "Peiszisztratosz",
+        "Kleiszthenész"
+      ],
+      "correct": "Peiszisztratosz"
+    },
+    {
+      "question": "Hány phülére osztotta Kleiszthenész Attika lakosságát?",
+      "answers": [
+        "10",
+        "20",
+        "30"
+      ],
+      "correct": "10"
+    },
+    {
+      "question": "Hány hadjáratot indított Dareiosz Athén ellen?",
+      "answers": [
+        "kettőt",
+        "hármat",
+        "négyet"
+      ],
+      "correct": "kettőt"
+    },
+    {
+      "question": "Hol szálltak szembe a görögök a Thrákia felől nyomuló, Xerxész vezette perzsákkal?",
+      "answers": [
+        "Szalamisznál",
+        "a Thermopülai szorosban",
+        "Spártánál"
+      ],
+      "correct": "a Thermopülai szorosban"
+    },
+    {
+      "question": "Ki lehetett az athéni népgyűlés tagja?",
+      "answers": [
+        "az ötszázak tanácsának tagjai",
+        "minden teljes korú athéni polgár",
+        "a harmincadik életévüket betöltött, katonaviselt férfiak"
+      ],
+      "correct": "minden teljes korú athéni polgár"
+    },
+    {
+      "question": "Mettől meddig uralkodott Nagy Sándor?",
+      "answers": [
+        "Kr.e. 338-323",
+        "Kr.e. 336-323",
+        "Kr.e. 336-324"
+      ],
+      "correct": "Kr.e. 336-323"
+    },
+    {
+      "question": "Melyik várost választotta Nagy Sándor birodalma székhelyéül?",
+      "answers": [
+        "Babilon",
+        "Alexandria",
+        "Spárta"
+      ],
+      "correct": "Babilon"
+    },
+    {
+      "question": "Mikortól indul a görög időszámítás?",
+      "answers": [
+        "Kr.e. 767",
+        "Kr.e. 766",
+        "Kr.e. 776"
+      ],
+      "correct": "Kr.e. 776"
+    },
+    {
+      "question": "Mikor hirdette meg reformjait Szolón?",
+      "answers": [
+        "Kr.e. 621",
+        "Kr.e. 594",
+        "Kr.e. 589"
+      ],
+      "correct": "Kr.e. 594"
+    },
+    {
+      "question": "Mettől meddig tartott a görög-perzsa háború?",
+      "answers": [
+        "Kr.e. 492-449",
+        "Kr.e. 492-479",
+        "Kr.e. 490-449"
+      ],
+      "correct": "Kr.e. 492-449"
+    },
+    {
+      "question": "Mikor volt a marathoni csata?",
+      "answers": [
+        "Kr.e. 492",
+        "Kr.e. 490",
+        "Kr.e. 489"
+      ],
+      "correct": "Kr.e. 490"
+    },
+    {
+      "question": "Mikor volt a szalamiszi csata?",
+      "answers": [
+        "Kr.e. 489",
+        "Kr.e. 480",
+        "Kr.e. 479"
+      ],
+      "correct": "Kr.e. 480"
+    },
+    {
+      "question": "Mettől meddig tartott a peloponnészoszi háború?",
+      "answers": [
+        "Kr.e. 449-431",
+        "Kr.e. 431-414",
+        "Kr.e. 431-404"
+      ],
+      "correct": "Kr.e. 431-404"
+    },
+    {
+      "question": "Mikor uralkodott II. II. Philipposz?",
+      "answers": [
+        "Kr.e. 359-338",
+        "Kr.e. 359-336",
+        "Kr.e. 359-333"
+      ],
+      "correct": "Kr.e. 359-336"
+    },
+    {
+      "question": "Mikor volt a khairóneiai csata?",
+      "answers": [
+        "Kr.e. 338",
+        "Kr.e. 337",
+        "Kr.e. 336"
+      ],
+      "correct": "Kr.e. 338"
+    },
+    {
+      "question": "Mikor szenvedett vereséget III. Dareiosz Gaugamélánál?",
+      "answers": [
+        "Kr.e. 333",
+        "Kr.e. 332",
+        "Kr.e. 331"
+      ],
+      "correct": "Kr.e. 331"
+    },
+    {
+      "question": "Mikor volt a szúzai menyegző?",
+      "answers": [
+        "Kr.e. 326",
+        "Kr.e. 324",
+        "Kr.e. 323"
+      ],
+      "correct": "Kr.e. 324"
+    },
+    {
+      "question": "Hol található Athén?",
+      "answers": [
+        "Kréta",
+        "Peloponnészosz",
+        "Attika"
+      ],
+      "correct": "Attika"
+    },
+    {
+      "question": "Hogyan nevezik a jellegzetes görög hadrendet?",
+      "answers": [
+        "falanx",
+        "klérosz",
+        "hoplita"
+      ],
+      "correct": "falanx"
+    },
+    {
+      "question": "Mikor virágzott a knósszoszi kultúra?",
+      "answers": [
+        "i. e. 3000-1200",
+        "i. e. 14. század",
+        "i. e. 22-16. század"
+      ],
+      "correct": "i. e. 3000-1200"
+    },
+    {
+      "question": "Melyik kifejezés nem illik Athén virágkorához?",
+      "answers": [
+        "arisztokratikus tanács",
+        "bulé",
+        "ekklészia"
+      ],
+      "correct": "arisztokratikus tanács"
+    },
+    {
+      "question": "Mi történt a i.e.X-IX.században?",
+      "answers": [
+        "Mükéne virágkora",
+        "Az átmeneti kor",
+        "A görög gyarmatosítás"
+      ],
+      "correct": "Az átmeneti kor"
+    },
+    {
+      "question": "Mi található Müsziában?",
+      "answers": [
+        "Spárta",
+        "Trója",
+        "Mükéne"
+      ],
+      "correct": "Trója"
+    },
+    {
+      "question": "Ki volt Hippokratész?",
+      "answers": [
+        "orvos",
+        "szónok",
+        "filozófus"
+      ],
+      "correct": "orvos"
+    },
+    {
+      "question": "Ki volt a tenger istene?",
+      "answers": [
+        "Dionüszosz",
+        "Hádész",
+        "Poszeidon"
+      ],
+      "correct": "Poszeidon"
+    },
+    {
+      "question": "Melyik a támadó jellegű, politikai beszéd?",
+      "answers": [
+        "apella",
+        "krüpteia",
+        "philippika"
+      ],
+      "correct": "philippika"
+    },
+    {
+      "question": "Ki volt Hippiasz?",
+      "answers": [
+        "athéni hadvezér",
+        "Peiszisztratosz fia",
+        "Nagy Sándor utóda"
+      ],
+      "correct": "Peiszisztratosz fia"
+    },
+    {
+      "question": "Mikor alapították a Déloszi szövetséget?",
+      "answers": [
+        "i. e. 480",
+        "i. e. 478",
+        "i. e. 776"
+      ],
+      "correct": "i. e. 478"
+    },
+    {
+      "question": "Hol található Spárta?",
+      "answers": [
+        "Peloponnészosz",
+        "Iónia",
+        "Boiótia"
+      ],
+      "correct": "Peloponnészosz"
+    },
+    {
+      "question": "Melyik kifejezés nem illik Athén virágkorához?",
+      "answers": [
+        "metoikoszok",
+        "helóták",
+        "arkhónok"
+      ],
+      "correct": "helóták"
+    },
+    {
+      "question": "Hogyan nevezik az ókori görög bérmunkást?",
+      "answers": [
+        "klérosz",
+        "hoplita",
+        "thész"
+      ],
+      "correct": "thész"
+    },
+    {
+      "question": "Mi történt i. e. 500 és i. e. 493 között?",
+      "answers": [
+        "Peiszisztratosz türannisza",
+        "Ión felkelés Kis-Ázsiában",
+        "Peloponnészoszi háború"
+      ],
+      "correct": "Ión felkelés Kis-Ázsiában"
+    },
+    {
+      "question": "Mi található Krétán?",
+      "answers": [
+        "Marathon",
+        "Knósszosz",
+        "Milétosz"
+      ],
+      "correct": "Knósszosz"
+    },
+    {
+      "question": "Mikor volt a gaugamelai csata?",
+      "answers": [
+        "i. e. 510",
+        "i. e. 338",
+        "i. e. 331"
+      ],
+      "correct": "i. e. 331"
+    },
+    {
+      "question": "Melyikük volt író?",
+      "answers": [
+        "Szapphó",
+        "Menandrosz",
+        "Hérodotosz"
+      ],
+      "correct": "Hérodotosz"
+    },
+    {
+      "question": "Mi a heliaia?",
+      "answers": [
+        "népgyűlés",
+        "vének tanácsa",
+        "esküdtbíróság"
+      ],
+      "correct": "esküdtbíróság"
+    },
+    {
+      "question": "Melyik a kakukktojás?",
+      "answers": [
+        "Déméter",
+        "Venus",
+        "Minósz"
+      ],
+      "correct": "Venus"
+    },
+    {
+      "question": "Mikor történt a Thermopülai csata?",
+      "answers": [
+        "i. e. 478",
+        "i. e. 480",
+        "i. e. 776"
+      ],
+      "correct": "i. e. 480"
+    },
+    {
+      "question": "Hol található Marathon?",
+      "answers": [
+        "Kréta",
+        "Attika",
+        "Iónia"
+      ],
+      "correct": "Attika"
+    },
+    {
+      "question": "Hogyan nevezik a sorsolással kiosztott földterületet?",
+      "answers": [
+        "falanx",
+        "klérosz",
+        "thész"
+      ],
+      "correct": "klérosz"
+    },
+    {
+      "question": "Melyik kifejezés nem illik Athén virágkorához?",
+      "answers": [
+        "peroikoszok",
+        "cserépszavazás",
+        "sztratégosz"
+      ],
+      "correct": "peroikoszok"
+    },
+    {
+      "question": "Mi található Boiótiában?",
+      "answers": [
+        "Théba",
+        "Trója",
+        "Spárta"
+      ],
+      "correct": "Théba"
+    },
+    {
+      "question": "Mi történt az i. e. 10. században?",
+      "answers": [
+        "Peloponnészoszi háború",
+        "Múkéne virágkora",
+        "Spárta alapítása"
+      ],
+      "correct": "Spárta alapítása"
+    },
+    {
+      "question": "Ki volt Plutarkhosz?",
+      "answers": [
+        "drámaíró",
+        "történetíró",
+        "filozófus"
+      ],
+      "correct": "történetíró"
+    },
+    {
+      "question": "Hány tagja volt a vének tanácsának?",
+      "answers": [
+        "28",
+        "29",
+        "30"
+      ],
+      "correct": "28"
+    },
+    {
+      "question": "Mi a szeiszaktheia?",
+      "answers": [
+        "filozófiai irányzat",
+        "teherlerázás",
+        "cserépszavazás"
+      ],
+      "correct": "teherlerázás"
+    },
+    {
+      "question": "Mikor volt a plataiai csata?",
+      "answers": [
+        "i. e. 490",
+        "i. e. 480",
+        "i. e. 479"
+      ],
+      "correct": "i. e. 479"
+    }
+]
