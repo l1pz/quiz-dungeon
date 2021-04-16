@@ -43,7 +43,7 @@ export default class Player {
         phaser.load.audio('footstep', 'sfx/footstep.wav');
         phaser.load.audio('idle', 'sfx/idle.wav');
         phaser.load.audio('music', 'sfx/music.mp3');
-        //phaser.load.audio('success', 'sfx/success.wav');
+        phaser.load.audio('success', 'sfx/success.wav');
         phaser.load.audio('error', 'sfx/error.wav');
         this.input = phaser.input.keyboard.createCursorKeys();
     }
@@ -64,8 +64,12 @@ export default class Player {
             loop: true,
         });
 
-        this.error = phaser.sound.add('error', {
+        this.errorSound = phaser.sound.add('error', {
             volume: 1,
+        });
+
+        this.successSound = phaser.sound.add('success', {
+            volume: 0.4,
         });
 
         this.music.play();
@@ -114,15 +118,15 @@ export default class Player {
     }
 
     playSuccessSound() {
-        this.music.pause();
-        const success = this.successSound.play();
-        success.on('complete', () => {this.music.resume();});
+        //this.music.pause();
+        this.successSound.play();
+        //this.successSound.on('complete', () => {this.music.resume();});
     }
 
     playErrorSound() {
-        this.music.pause();
-        this.error.play();
-        this.error.on('complete', () => {this.music.resume();});
+        //this.music.pause();
+        this.errorSound.play();
+        //this.errorSound.on('complete', () => {this.music.resume();});
     }
 
     handleAnimations() {

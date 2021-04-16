@@ -47,6 +47,7 @@ function create() {
             questionManager.newQuestion();
             if (questionManager.questions[questionManager.questionIndex].correct == door.index) {
                 this.cameras.main.flash('200');    
+                player.playSuccessSound();   
             }
             else {
                 this.cameras.main.shake('200');
