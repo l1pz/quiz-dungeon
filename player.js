@@ -16,6 +16,11 @@ export default class Player {
                 { name: 'lookLeft', from: 'lookingRight', to: 'lookingLeft' },
                 { name: 'lookRight', from: 'lookingLeft', to: 'lookingRight' },
             ],
+            methods: {
+                onInvalidTransition: function (transition, from, to) {
+
+                }
+            }
         });
         this.animSM = new StateMachine({
             init: 'idlingLeft',
@@ -27,6 +32,11 @@ export default class Player {
                 { name: 'idleLeft', from: ['walkingLeft', 'turningLeft'], to: 'idlingLeft' },
                 { name: 'idleRight', from: ['walkingRight', 'turningRight'], to: 'idlingRight' },
             ],
+            methods: {
+                onInvalidTransition: function (transition, from, to) {
+
+                }
+            }
 
         });
     }
@@ -37,11 +47,12 @@ export default class Player {
     }
 
     create(phaser, x, y) {
+        this.xDefault = x;
+        this.yDefault = y;
         this.sprite = phaser.physics.add.sprite(x, y);
         this.sprite.body.setSize(12, 16);
         this.sprite.body.setOffset(6, 8);
         this.createAnims(phaser);
-        console.log(this.animSM.allStates());
         this.animSM.observe({
             onTurningRight: () => { this.sprite.anims.play('player-left-turn'); },
             onLeaveTurningRight: () => { if (this.sprite.anims.isPlaying) return false; },
@@ -62,14 +73,18 @@ export default class Player {
         //console.log(this.animSM.state);
     }
 
+    resetPosition() {
+        this.sprite.setPosition(this.xDefault, this.yDefault);
+    }
+
     handleAnimations() {
         if (this.xVel == 0 && this.yVel == 0) {
 
             if (this.lookDirSM.state == 'lookingLeft') {
-                this.animSM.can('idleLeft') && this.animSM.idleLeft();
+                this.animSM.idleLeft();
             }
             else {
-                this.animSM.can('idleRight') && this.animSM.idleRight();
+                this.animSM.idleRight();
             }
         }
         else {
@@ -78,25 +93,25 @@ export default class Player {
                     this.animSM.turnRight();
                 }
                 else {
-                    this.animSM.can('walkRight') && this.animSM.walkRight();
+                    this.animSM.walkRight();
                 }
-                this.lookDirSM.can('lookRight') && this.lookDirSM.lookRight();
+                this.lookDirSM.lookRight();
             }
             else if (this.xVel < 0) {
                 if (this.lookDirSM.state == 'lookingRight') {
                     this.animSM.turnLeft();
                 }
                 else {
-                    this.animSM.can('walkLeft') && this.animSM.walkLeft();
+                    this.animSM.walkLeft();
                 }
-                this.lookDirSM.can('lookLeft') && this.lookDirSM.lookLeft();
+                this.lookDirSM.lookLeft();
             }
             else {
                 if (this.lookDirSM.state == 'lookingRight') {
-                    this.animSM.can('walkRight') && this.animSM.walkRight();
+                    this.animSM.walkRight();
                 }
                 else {
-                    this.animSM.can('walkLeft') && this.animSM.walkLeft();
+                    this.animSM.walkLeft();
                 }
             }
         }

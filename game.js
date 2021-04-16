@@ -1,9 +1,10 @@
 import Dungeon from './dungeon.js';
-import Player from './player.js'
+import Player from './player.js';
+import QuestionManager from './questionManager.js'
 
 const config = {
     type: Phaser.AUTO,
-    backgroundColor: '#34343f',
+    backgroundColor: '#353540',
     scene: {
         preload: preload,
         create: create,
@@ -11,8 +12,8 @@ const config = {
     },
     scale: {
         width: 400,
-        height: 200,
-        zoom: 3,
+        height: 400,
+        zoom: 2,
         autoCenter: Phaser.Scale.CENTER_BOTH,
     },
     physics: {
@@ -25,24 +26,33 @@ const config = {
 
 const game = new Phaser.Game(config);
 
-const dungeon = new Dungeon();
+const dungeon = new Dungeon(0, 256);
 const player = new Player();
+const questionManager = new QuestionManager();
 
-function preload ()
-{
-    this.load.json('questions', 'questions.json');
+function preload() {
+    questionManager.preload(this);
     dungeon.preload(this);
     player.preload(this);
 }
 
-function create ()
-{
+function create() {
     dungeon.create(this);
     player.create(this, 200 + dungeon.xOffset, 50 + dungeon.yOffset);
     this.physics.add.collider(player.sprite, dungeon.floor);
+    let index = 0;
+    for (const door of dungeon.doors) {
+        this.physics.add.overlap(player.sprite, door, (playerBody, door) => {
+            if (questionManager.questions[questionManager.questionIndex].correct == door.index) {
+                player.resetPosition();
+                questionManager.newQuestion();
+            }
+        });
+        index++;
+    }
+    questionManager.create(this);
 }
 
-function update (t, dt)
-{
+function update(t, dt) {
     player.update(this, dt);
 }
