@@ -43,7 +43,7 @@ export default class Player {
         phaser.load.audio('footstep', 'sfx/footstep.wav');
         phaser.load.audio('idle', 'sfx/idle.wav');
         phaser.load.audio('music', 'sfx/music.mp3');
-        phaser.load.audio('success', 'sfx/success.wav');
+        //phaser.load.audio('success', 'sfx/success.wav');
         phaser.load.audio('error', 'sfx/error.wav');
         this.input = phaser.input.keyboard.createCursorKeys();
     }
@@ -61,6 +61,11 @@ export default class Player {
         });
         this.music = phaser.sound.add('music', {
             volume: 0.1,
+            loop: true,
+        });
+
+        this.error = phaser.sound.add('error', {
+            volume: 1,
         });
 
         this.music.play();
@@ -116,8 +121,8 @@ export default class Player {
 
     playErrorSound() {
         this.music.pause();
-        const error = this.error.play();
-        error.on('complete', () => {this.music.resume();});
+        this.error.play();
+        this.error.on('complete', () => {this.music.resume();});
     }
 
     handleAnimations() {

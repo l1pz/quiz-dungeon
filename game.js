@@ -49,7 +49,8 @@ function create() {
                 this.cameras.main.flash('200');    
             }
             else {
-                this.cameras.main.shake('200');    
+                this.cameras.main.shake('200');
+                player.playErrorSound();   
             }
         });
         index++;

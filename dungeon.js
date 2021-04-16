@@ -41,4 +41,6 @@ export default class Dungeon {
             faceColor: new Phaser.Display.Color(40, 39, 37, 255)
         });*/
     }
+
+    
 }
