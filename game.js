@@ -41,18 +41,23 @@ function create() {
     player.create(this, 200 + dungeon.xOffset, 50 + dungeon.yOffset);
     this.physics.add.collider(player.sprite, dungeon.floor);
     let index = 0;
+    
     for (const door of dungeon.doors) {
         this.physics.add.overlap(player.sprite, door, (playerBody, door) => {
-            player.resetPosition(this);
-            questionManager.newQuestion();
-            if (questionManager.questions[questionManager.questionIndex].correct == door.index) {
+            if (questionManager.correct == -1 || questionManager.correct === door.index) {
                 this.cameras.main.flash('200');    
                 player.playSuccessSound();   
+                if(questionManager.correct > -1) {
+                    questionManager.removeQuestion()
+                }
             }
             else {
                 this.cameras.main.shake('200');
+                questionManager.addQuestions();
                 player.playErrorSound();   
             }
+            player.resetPosition(this);
+            questionManager.newQuestion();
         });
         index++;
     }

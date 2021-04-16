@@ -50,7 +50,7 @@ export default class Player {
 
     create(phaser, x, y) {
         this.footsteps = phaser.sound.add('footstep', {
-            volume: 0.4,
+            volume: 0.7,
             rate: 0.5,
             loop: true,
         });
@@ -60,7 +60,7 @@ export default class Player {
             loop: true,
         });
         this.music = phaser.sound.add('music', {
-            volume: 0.1,
+            volume: 1,
             loop: true,
         });
 
