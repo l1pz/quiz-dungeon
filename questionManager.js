@@ -84,7 +84,7 @@ export default class QuestionManager {
   }
 
   addQuestions() {
-    if(questionsLeft + 1 <= this.questions.length )
+    if(this.questionsLeft + 1 <= this.questions.length )
     this.questionsLeft++;
 
   }
