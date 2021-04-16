@@ -49,6 +49,7 @@ export default class QuestionManager {
       return question;
     });
     this.questionIndex = Math.floor(Math.random() * this.questions.length);
+    console.log(this.questions.length);
 
     this.questionsText = phaser.add.bitmapText(0, 360, 'font', this.questionsLeft + ' kérdés van hátra');
 
@@ -83,10 +84,13 @@ export default class QuestionManager {
   }
 
   addQuestions() {
+    if(questionsLeft + 1 <= this.questions.length )
     this.questionsLeft++;
+
   }
 
   removeQuestion() {
+    this.questions.splice(this.questionIndex, 1);
     this.questionsLeft--;
   }
 }
