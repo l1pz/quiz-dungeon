@@ -43,9 +43,13 @@ function create() {
     let index = 0;
     for (const door of dungeon.doors) {
         this.physics.add.overlap(player.sprite, door, (playerBody, door) => {
+            player.resetPosition(this);
+            questionManager.newQuestion();
             if (questionManager.questions[questionManager.questionIndex].correct == door.index) {
-                player.resetPosition();
-                questionManager.newQuestion();
+                this.cameras.main.flash('200');    
+            }
+            else {
+                this.cameras.main.shake('200');    
             }
         });
         index++;

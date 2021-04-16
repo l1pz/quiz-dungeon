@@ -24,8 +24,8 @@ export default class QuestionManager {
     console.log('questionmanager created')
     this.question = null;
     this.answers = [null, null, null];
-    this.width = 400 - 16;
-    this.xOffset = 16;
+    this.xOffset = 0;
+    this.width = 400 - this.xOffset;
     this.yOffset = 16;
     this.yStart = 48;
     this.yDiff = 48;

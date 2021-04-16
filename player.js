@@ -1,9 +1,10 @@
 export default class Player {
     constructor() {
         console.log("Player created!")
+        this.canMove = true;
         this.animSpeeds = {
             'walk': 15,
-            'idle': 10,
+            'idle': 10,//10,
             'hurt': 15,
             'turn': 25
         }
@@ -17,9 +18,7 @@ export default class Player {
                 { name: 'lookRight', from: 'lookingLeft', to: 'lookingRight' },
             ],
             methods: {
-                onInvalidTransition: function (transition, from, to) {
-
-                }
+                onInvalidTransition: function (transition, from, to) {}
             }
         });
         this.animSM = new StateMachine({
@@ -31,22 +30,42 @@ export default class Player {
                 { name: 'turnRight', from: ['idlingLeft', 'walkingLeft'], to: 'turningRight' },
                 { name: 'idleLeft', from: ['walkingLeft', 'turningLeft'], to: 'idlingLeft' },
                 { name: 'idleRight', from: ['walkingRight', 'turningRight'], to: 'idlingRight' },
+                { name: 'goto', from: '*', to: s => s}
             ],
             methods: {
-                onInvalidTransition: function (transition, from, to) {
-
-                }
+                onInvalidTransition: function (transition, from, to) {}
             }
-
         });
     }
 
     preload(phaser) {
         phaser.load.atlas('player', 'sprites/player/player.png', 'sprites/player/player.json');
+        phaser.load.audio('footstep', 'sfx/footstep.wav');
+        phaser.load.audio('idle', 'sfx/idle.wav');
+        phaser.load.audio('music', 'sfx/music.mp3');
+        phaser.load.audio('success', 'sfx/success.wav');
+        phaser.load.audio('error', 'sfx/error.wav');
         this.input = phaser.input.keyboard.createCursorKeys();
     }
 
     create(phaser, x, y) {
+        this.footsteps = phaser.sound.add('footstep', {
+            volume: 0.4,
+            rate: 0.5,
+            loop: true,
+        });
+        this.idleSound = phaser.sound.add('idle', {
+            volume: 0.01,
+            rate: 0.5,
+            loop: true,
+        });
+        this.music = phaser.sound.add('music', {
+            volume: 0.1,
+        });
+
+        this.music.play();
+
+
         this.xDefault = x;
         this.yDefault = y;
         this.sprite = phaser.physics.add.sprite(x, y);
@@ -58,23 +77,47 @@ export default class Player {
             onLeaveTurningRight: () => { if (this.sprite.anims.isPlaying) return false; },
             onTurningLeft: () => { this.sprite.anims.play('player-right-turn'); },
             onLeaveTurningLeft: () => { if (this.sprite.anims.isPlaying) return false; },
-            onWalkingRight: () => { this.sprite.anims.play('player-right-walk'); },
+            onLeaveIdlingLeft: () => {this.idleSound.stop(); this.footsteps.play(); },
+            onLeaveIdlingRight: () => {this.idleSound.stop(); this.footsteps.play(); },
+            onWalkingRight: () => {  this.sprite.anims.play('player-right-walk'); },
             onWalkingLeft: () => { this.sprite.anims.play('player-left-walk'); },
-            onIdlingRight: () => { this.sprite.anims.play('player-right-idle'); },
-            onIdlingLeft: () => { this.sprite.anims.play('player-left-idle'); },
+            onIdlingRight: () => { this.idleSound.play(); this.footsteps.stop(); this.sprite.anims.play('player-right-idle'); },
+            onIdlingLeft: () => { this.idleSound.play(); this.footsteps.stop(); this.sprite.anims.play('player-left-idle'); },
         });
         this.sprite.anims.play('player-left-idle');
     }
 
     update(phaser, dt) {
+        if(!this.canMove) return;
         this.calculateVelocities();
         this.handleAnimations();
+
         this.move(dt);
         //console.log(this.animSM.state);
     }
 
-    resetPosition() {
+    resetPosition(phaser) {
         this.sprite.setPosition(this.xDefault, this.yDefault);
+        this.canMove = false;
+        this.sprite.setVelocity(0, 0);
+        this.animSM.goto('idlingLeft');
+        this.lookDirSM.lookLeft();
+        phaser.time.delayedCall(200, () => {
+            this.canMove = true;
+        });  // delay in ms
+
+    }
+
+    playSuccessSound() {
+        this.music.pause();
+        const success = this.successSound.play();
+        success.on('complete', () => {this.music.resume();});
+    }
+
+    playErrorSound() {
+        this.music.pause();
+        const error = this.error.play();
+        error.on('complete', () => {this.music.resume();});
     }
 
     handleAnimations() {
